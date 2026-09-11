@@ -1,9 +1,91 @@
 [gd_scene format=3 uid="uid://c4x5focqoe4c5"]
 
-[node name="Album" type="Control" unique_id=314294202]
+[ext_resource type="Script" uid="uid://csrct5oa8wg6g" path="res://scripts/album.gd" id="1_album"]
+
+[node name="Album" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_album")
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Альбом окрасов"
+horizontal_alignment = 1
+
+[node name="HorsesContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+alignment = 1
+
+[node name="Horse0" type="PanelContainer" parent="VBoxContainer/HorsesContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ColorRect0" type="ColorRect" parent="VBoxContainer/HorsesContainer/Horse0"]
+layout_mode = 2
+color = Color(0.72, 0.48, 0.28, 1)
+
+[node name="Horse1" type="PanelContainer" parent="VBoxContainer/HorsesContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ColorRect1" type="ColorRect" parent="VBoxContainer/HorsesContainer/Horse1"]
+layout_mode = 2
+color = Color(0.72, 0.48, 0.28, 1)
+
+[node name="Horse2" type="PanelContainer" parent="VBoxContainer/HorsesContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ColorRect2" type="ColorRect" parent="VBoxContainer/HorsesContainer/Horse2"]
+layout_mode = 2
+color = Color(0.72, 0.48, 0.28, 1)
+
+[node name="Horse3" type="PanelContainer" parent="VBoxContainer/HorsesContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ColorRect3" type="ColorRect" parent="VBoxContainer/HorsesContainer/Horse3"]
+layout_mode = 2
+color = Color(0.72, 0.48, 0.28, 1)
+
+[node name="Horse4" type="PanelContainer" parent="VBoxContainer/HorsesContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ColorRect4" type="ColorRect" parent="VBoxContainer/HorsesContainer/Horse4"]
+layout_mode = 2
+color = Color(0.72, 0.48, 0.28, 1)
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Назад"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
