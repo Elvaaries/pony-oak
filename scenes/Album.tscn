@@ -1,9 +1,118 @@
 [gd_scene format=3 uid="uid://c4x5focqoe4c5"]
 
-[node name="Album" type="Control" unique_id=314294202]
+[ext_resource type="Script" uid="uid://csrct5oa8wg6g" path="res://scripts/album.gd" id="1_album"]
+[ext_resource type="Shader" uid="uid://q80mp3gex3aj" path="res://shaders/horse_creator.gdshader" id="2_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
+shader = ExtResource("2_shader")
+shader_parameter/base_color = Color(0.72, 0.48, 0.28, 1)
+shader_parameter/shadow_color = Color(0.28, 0.16, 0.08, 1)
+shader_parameter/highlight_color = Color(1, 0.92, 0.75, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2"]
+shader = ExtResource("2_shader")
+shader_parameter/base_color = Color(0.72, 0.48, 0.28, 1)
+shader_parameter/shadow_color = Color(0.28, 0.16, 0.08, 1)
+shader_parameter/highlight_color = Color(1, 0.92, 0.75, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3"]
+shader = ExtResource("2_shader")
+shader_parameter/base_color = Color(0.72, 0.48, 0.28, 1)
+shader_parameter/shadow_color = Color(0.28, 0.16, 0.08, 1)
+shader_parameter/highlight_color = Color(1, 0.92, 0.75, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4"]
+shader = ExtResource("2_shader")
+shader_parameter/base_color = Color(0.72, 0.48, 0.28, 1)
+shader_parameter/shadow_color = Color(0.28, 0.16, 0.08, 1)
+shader_parameter/highlight_color = Color(1, 0.92, 0.75, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5"]
+shader = ExtResource("2_shader")
+shader_parameter/base_color = Color(0.72, 0.48, 0.28, 1)
+shader_parameter/shadow_color = Color(0.28, 0.16, 0.08, 1)
+shader_parameter/highlight_color = Color(1, 0.92, 0.75, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D"]
+load_path = "res://.godot/imported/Sprite-0001.png-2c4ed6717789ecb669895a778cff3a77.ctex"
+
+[node name="Album" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_album")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -280.0
+offset_top = 20.0
+offset_right = 280.0
+offset_bottom = 80.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Альбом окрасов"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -150.0
+offset_right = 300.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+alignment = 1
+
+[node name="Horse0" type="Sprite2D" parent="GridContainer"]
+material = SubResource("ShaderMaterial_1")
+scale = Vector2(2, 2)
+texture = SubResource("CompressedTexture2D")
+
+[node name="Horse1" type="Sprite2D" parent="GridContainer"]
+material = SubResource("ShaderMaterial_2")
+scale = Vector2(2, 2)
+texture = SubResource("CompressedTexture2D")
+
+[node name="Horse2" type="Sprite2D" parent="GridContainer"]
+material = SubResource("ShaderMaterial_3")
+scale = Vector2(2, 2)
+texture = SubResource("CompressedTexture2D")
+
+[node name="Horse3" type="Sprite2D" parent="GridContainer"]
+material = SubResource("ShaderMaterial_4")
+scale = Vector2(2, 2)
+texture = SubResource("CompressedTexture2D")
+
+[node name="Horse4" type="Sprite2D" parent="GridContainer"]
+material = SubResource("ShaderMaterial_5")
+scale = Vector2(2, 2)
+texture = SubResource("CompressedTexture2D")
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -25.0
+offset_right = 100.0
+offset_bottom = 25.0
+grow_vertical = 2
+text = "Назад"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
