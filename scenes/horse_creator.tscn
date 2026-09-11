@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://budc66d16cevr"]
+
+[ext_resource type="Script" uid="uid://bbwhxd3hmifje" path="res://scripts/horse_creator.gd" id="1_75w6r"]
+[ext_resource type="Shader" uid="uid://q80mp3gex3aj" path="res://shaders/horse_creator.gdshader" id="2_5ckn3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xvcts"]
+shader = ExtResource("2_5ckn3")
+shader_parameter/base_color = Color(0.72, 0.48, 0.28, 1)
+shader_parameter/shadow_color = Color(0.28, 0.16, 0.08, 1)
+shader_parameter/highlight_color = Color(1, 0.92, 0.75, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wrdbq"]
+load_path = "res://.godot/imported/Sprite-0001.png-2c4ed6717789ecb669895a778cff3a77.ctex"
+
+[node name="horse_creator" type="Control" unique_id=2039366639]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_75w6r")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=314440144]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 643.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1010531783]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1875183874]
+layout_mode = 2
+text = "Создание окраса"
+horizontal_alignment = 1
+
+[node name="SpherePreview" type="Sprite2D" parent="MarginContainer/VBoxContainer" unique_id=631528824]
+material = SubResource("ShaderMaterial_xvcts")
+position = Vector2(249.48438, 245.51569)
+scale = Vector2(3, 3)
+texture = SubResource("CompressedTexture2D_wrdbq")
+
+[node name="ColorBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1304826291]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BodyPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=793897603]
+layout_mode = 2
+
+[node name="ShadowPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1566462553]
+layout_mode = 2
+
+[node name="HighlightPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=563833475]
+layout_mode = 2
+
+[node name="ButtonsBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=34347821]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsBox" unique_id=223846807]
+layout_mode = 2
+text = "Назад"
+
+[node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsBox" unique_id=412773814]
+layout_mode = 2
+text = "Сохранить"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsBox/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsBox/SaveButton" to="." method="_on_save_button_pressed"]

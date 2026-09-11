@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c73of7kcd2hdk"]
+
+[ext_resource type="Script" uid="uid://bol4seo3xv63u" path="res://scripts/horse_viewer.gd" id="1_5ek86"]
+[ext_resource type="Shader" uid="uid://q80mp3gex3aj" path="res://shaders/horse_creator.gdshader" id="2_rn7ah"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pyqng"]
+shader = ExtResource("2_rn7ah")
+shader_parameter/base_color = Color(0.72, 0.48, 0.28, 1)
+shader_parameter/shadow_color = Color(0.28, 0.16, 0.08, 1)
+shader_parameter/highlight_color = Color(1, 0.92, 0.75, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m8sea"]
+load_path = "res://.godot/imported/Sprite-0001.png-2c4ed6717789ecb669895a778cff3a77.ctex"
+
+[node name="HorseViewer" type="Control" unique_id=1806056252]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5ek86")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=963209597]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1984275384]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=360086072]
+layout_mode = 2
+
+[node name="CodeInput" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=1756848601]
+layout_mode = 2
+
+[node name="SpherePreview" type="Sprite2D" parent="MarginContainer/VBoxContainer" unique_id=947938587]
+material = SubResource("ShaderMaterial_pyqng")
+position = Vector2(249.48438, 245.51569)
+scale = Vector2(3, 3)
+texture = SubResource("CompressedTexture2D_m8sea")
+
+[node name="LoadButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=583322087]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1004844644]
+layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

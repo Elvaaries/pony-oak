@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cs2dak2opokbi"]
+
+[ext_resource type="Script" uid="uid://dlwv8d2tfwg8d" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+
+[node name="MainMenu" type="Control" unique_id=1469347191]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1162118257]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=418111528]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1106595691]
+layout_mode = 2
+text = "пони оак"
+
+[node name="CreateButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1902581397]
+layout_mode = 2
+text = "создать окрас"
+script = ExtResource("1_l6cm7")
+
+[node name="ViewButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=642268239]
+layout_mode = 2
+text = "просмотр"
+script = ExtResource("1_l6cm7")
+
+[node name="AlbumButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=248550962]
+layout_mode = 2
+text = "Альбом окрасов"
+
+[node name="AlbumButton2" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1534630849]
+layout_mode = 2
+text = "Альбом окрасов"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/CreateButton" to="." method="_on_create_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ViewButton" to="." method="_on_view_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/AlbumButton" to="." method="_on_album_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/AlbumButton2" to="." method="_on_album_button_pressed"]
