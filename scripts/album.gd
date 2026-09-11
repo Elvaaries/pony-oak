@@ -1,12 +1,11 @@
 extends Control
 
-@onready var grid_container: GridContainer = $GridContainer
-@onready var horses: Array[Sprite2D] = [
-	$GridContainer/Horse0,
-	$GridContainer/Horse1,
-	$GridContainer/Horse2,
-	$GridContainer/Horse3,
-	$GridContainer/Horse4
+@onready var color_rects: Array[ColorRect] = [
+	$VBoxContainer/HorsesContainer/Horse0/ColorRect0,
+	$VBoxContainer/HorsesContainer/Horse1/ColorRect1,
+	$VBoxContainer/HorsesContainer/Horse2/ColorRect2,
+	$VBoxContainer/HorsesContainer/Horse3/ColorRect3,
+	$VBoxContainer/HorsesContainer/Horse4/ColorRect4
 ]
 
 func _ready() -> void:
@@ -16,32 +15,25 @@ func _ready() -> void:
 func update_display() -> void:
 	var saved_horses = HorseData.get_all_horses()
 	
+	print("Сохраненных окрасов: ", saved_horses.size())
+	
 	# Обновляем каждую позицию в альбоме
 	for i in range(5):
 		if i < saved_horses.size():
 			# Есть сохраненный окрас, применяем его
 			var colors = saved_horses[i]
-			apply_colors(horses[i], colors)
+			apply_colors(color_rects[i], colors)
+			print("Слот ", i, ": применен окрас")
 		else:
 			# Нет окраса, оставляем дефолтный цвет
-			var mat = horses[i].material as ShaderMaterial
-			if mat:
-				# Светло-серый цвет для пустого слота
-				mat.set_shader_parameter("base_color", Color(0.7, 0.7, 0.7, 1))
-				mat.set_shader_parameter("shadow_color", Color(0.4, 0.4, 0.4, 1))
-				mat.set_shader_parameter("highlight_color", Color(0.9, 0.9, 0.9, 1))
+			color_rects[i].color = Color(0.7, 0.7, 0.7, 1)
+			print("Слот ", i, ": пусто")
 
-func apply_colors(sprite: Sprite2D, colors: Dictionary) -> void:
-	var mat = sprite.material as ShaderMaterial
-	if mat == null:
-		return
-	
+func apply_colors(color_rect: ColorRect, colors: Dictionary) -> void:
 	if colors.has("body"):
-		mat.set_shader_parameter("base_color", Color(colors["body"]))
-	if colors.has("shadow"):
-		mat.set_shader_parameter("shadow_color", Color(colors["shadow"]))
-	if colors.has("highlight"):
-		mat.set_shader_parameter("highlight_color", Color(colors["highlight"]))
+		color_rect.color = Color(colors["body"])
+	else:
+		color_rect.color = Color(0.5, 0.5, 0.5, 1)
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
