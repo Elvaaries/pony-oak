@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://c4x5focqoe4c5"]
 
+[ext_resource type="Script" uid="uid://djr0ovoh5nc8y" path="res://scripts/album.gd" id="1_hetyq"]
+
 [node name="Album" type="Control" unique_id=314294202]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +9,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_hetyq")
+
+[node name="BackButton" type="Button" parent="." unique_id=275173241]
+layout_mode = 0
+text = "Назад"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
