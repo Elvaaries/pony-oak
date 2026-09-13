@@ -52,39 +52,78 @@ texture = ExtResource("2_75w6r")
 [node name="SpotsLayer" type="Sprite2D" parent="MarginContainer/VBoxContainer" unique_id=549029270]
 texture_filter = 1
 
-[node name="ColorBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1304826291]
+[node name="ColorBox" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=561254236]
 layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
+columns = 2
 
-[node name="BodyBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1663857708]
+[node name="HeadPickerLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=149556961]
+layout_mode = 2
+text = "Голова"
+
+[node name="HeadPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1482725941]
 layout_mode = 2
 
-[node name="BodyLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox/BodyBox" unique_id=1597737210]
+[node name="NeckPickerLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1115990939]
+layout_mode = 2
+text = "Шея"
+
+[node name="NeckPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1570073833]
+layout_mode = 2
+
+[node name="EarLeftPickerLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1959291817]
+layout_mode = 2
+text = "Левое ухо"
+
+[node name="EarLeftPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1731231622]
+layout_mode = 2
+
+[node name="EarRightPickerLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=2040020896]
+layout_mode = 2
+text = "Правое ухо"
+
+[node name="EarRightPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1397348642]
+layout_mode = 2
+
+[node name="ChestPickerLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=2032552662]
+layout_mode = 2
+text = "Грудь"
+
+[node name="ChestPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=311575502]
+layout_mode = 2
+
+[node name="BodyPickerLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1574090675]
 layout_mode = 2
 text = "Тело"
 
-[node name="BodyPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox/BodyBox" unique_id=793897603]
+[node name="BodyPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=97703864]
 layout_mode = 2
 
-[node name="ShadowBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=21118025]
+[node name="LegFLPickerLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=375302547]
+layout_mode = 2
+text = "Передняя левая"
+
+[node name="LegFLPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1304234352]
 layout_mode = 2
 
-[node name="ShadowLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox/ShadowBox" unique_id=427602596]
+[node name="LegFRPickerLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=301013718]
 layout_mode = 2
-text = "Тень"
+text = "Передняя правая"
 
-[node name="ShadowPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox/ShadowBox" unique_id=1566462553]
-layout_mode = 2
-
-[node name="HighlightBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1558637498]
+[node name="LegFRPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1551147849]
 layout_mode = 2
 
-[node name="HighlightLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox/HighlightBox" unique_id=1090772315]
+[node name="LegBLPickerLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=487271979]
 layout_mode = 2
-text = "Блик"
+text = "Задняя левая"
 
-[node name="HighlightPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox/HighlightBox" unique_id=563833475]
+[node name="LegBLPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1423208640]
+layout_mode = 2
+
+[node name="LegBRPickerLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=60771502]
+layout_mode = 2
+text = "Задняя правая"
+
+[node name="LegBRPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1841291357]
 layout_mode = 2
 
 [node name="ButtonsBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=34347821]
