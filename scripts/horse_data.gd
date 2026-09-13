@@ -4,7 +4,7 @@ const SAVE_PATH = "user://horses.save"
 const MAX_HORSES = 5
 
 var horses: Array = []
-var selected_horse = null		# для передачи окраса из альбома в просмотрщик
+var selected_horse = null
 
 func _ready() -> void:
 	load_horses()
@@ -25,10 +25,10 @@ func load_horses() -> void:
 	else:
 		horses = []
 
-func add_horse(colors: Dictionary) -> bool:
+func add_horse(data: Dictionary) -> bool:
 	if horses.size() >= MAX_HORSES:
 		return false
-	horses.append(colors)
+	horses.append(data)
 	save_horses()
 	return true
 
