@@ -47,13 +47,34 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="BodyPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=793897603]
+[node name="BodyBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1663857708]
 layout_mode = 2
 
-[node name="ShadowPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1566462553]
+[node name="BodyLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox/BodyBox" unique_id=1597737210]
+layout_mode = 2
+text = "Тело"
+
+[node name="BodyPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox/BodyBox" unique_id=793897603]
 layout_mode = 2
 
-[node name="HighlightPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=563833475]
+[node name="ShadowBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=21118025]
+layout_mode = 2
+
+[node name="ShadowLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox/ShadowBox" unique_id=427602596]
+layout_mode = 2
+text = "Тень"
+
+[node name="ShadowPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox/ShadowBox" unique_id=1566462553]
+layout_mode = 2
+
+[node name="HighlightBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ColorBox" unique_id=1558637498]
+layout_mode = 2
+
+[node name="HighlightLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorBox/HighlightBox" unique_id=1090772315]
+layout_mode = 2
+text = "Блик"
+
+[node name="HighlightPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/ColorBox/HighlightBox" unique_id=563833475]
 layout_mode = 2
 
 [node name="ButtonsBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=34347821]
@@ -68,6 +89,10 @@ text = "Назад"
 [node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsBox" unique_id=412773814]
 layout_mode = 2
 text = "Сохранить"
+
+[node name="SaveDialog" type="AcceptDialog" parent="." unique_id=1574772684]
+title = "Окрас сохранен!"
+ok_button_text = "Копировать код"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsBox/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsBox/SaveButton" to="." method="_on_save_button_pressed"]

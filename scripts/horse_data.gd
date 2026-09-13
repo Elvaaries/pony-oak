@@ -3,7 +3,8 @@ extends Node
 const SAVE_PATH = "user://horses.save"
 const MAX_HORSES = 5
 
-var horses: Array = []		# массив словарей с окрасами
+var horses: Array = []
+var selected_horse = null		# для передачи окраса из альбома в просмотрщик
 
 func _ready() -> void:
 	load_horses()
@@ -26,8 +27,7 @@ func load_horses() -> void:
 
 func add_horse(colors: Dictionary) -> bool:
 	if horses.size() >= MAX_HORSES:
-		return false		# альбом полон
-	
+		return false
 	horses.append(colors)
 	save_horses()
 	return true

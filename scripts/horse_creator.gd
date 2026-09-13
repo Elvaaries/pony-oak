@@ -1,9 +1,12 @@
 extends Control
 
 @onready var sphere: Sprite2D = $MarginContainer/VBoxContainer/SpherePreview
-@onready var body_picker: ColorPickerButton = $MarginContainer/VBoxContainer/ColorBox/BodyPicker
-@onready var shadow_picker: ColorPickerButton = $MarginContainer/VBoxContainer/ColorBox/ShadowPicker
-@onready var highlight_picker: ColorPickerButton = $MarginContainer/VBoxContainer/ColorBox/HighlightPicker
+@onready var body_picker: ColorPickerButton = $MarginContainer/VBoxContainer/ColorBox/BodyBox/BodyPicker
+@onready var shadow_picker: ColorPickerButton = $MarginContainer/VBoxContainer/ColorBox/ShadowBox/ShadowPicker
+@onready var highlight_picker: ColorPickerButton = $MarginContainer/VBoxContainer/ColorBox/HighlightBox/HighlightPicker
+@onready var save_dialog: AcceptDialog = $SaveDialog
+
+var last_code: String = ""
 
 func _ready() -> void:
 	var mat = sphere.material as ShaderMaterial
@@ -14,6 +17,8 @@ func _ready() -> void:
 	body_picker.color_changed.connect(func(c): mat.set_shader_parameter("base_color", c))
 	shadow_picker.color_changed.connect(func(c): mat.set_shader_parameter("shadow_color", c))
 	highlight_picker.color_changed.connect(func(c): mat.set_shader_parameter("highlight_color", c))
+	
+	save_dialog.confirmed.connect(_on_save_dialog_confirmed)
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
@@ -25,11 +30,20 @@ func _on_save_button_pressed() -> void:
 		"highlight": highlight_picker.color.to_html(false)
 	}
 	
-	# Пробуем сохранить в альбом
 	var success = HorseData.add_horse(colors)
 	
 	if success:
-		print("Окрас сохранён в альбом! Всего: ", HorseData.horses.size())
-		# Позже здесь будет красивое окно
+		# Генерируем код
+		var json = JSON.stringify(colors)
+		last_code = Marshalls.utf8_to_base64(json)
+		
+		save_dialog.dialog_text = "Окрас сохранён в альбом!\n\nКод:\n" + last_code
+		save_dialog.popup_centered()
 	else:
-		print("Альбом полон! Максимум 5 окрасов.")
+		save_dialog.dialog_text = "Альбом полон!\nМаксимум 5 окрасов.\nУдалите старые в Альбоме."
+		save_dialog.popup_centered()
+
+func _on_save_dialog_confirmed() -> void:
+	if last_code != "":
+		DisplayServer.clipboard_set(last_code)
+		print("Код скопирован в буфер обмена")

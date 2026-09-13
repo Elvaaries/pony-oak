@@ -4,8 +4,24 @@ extends Control
 @onready var code_input: LineEdit = $MarginContainer/VBoxContainer/CodeInput
 
 func _ready() -> void:
-	# Можно сразу поставить фокус в поле ввода
 	code_input.grab_focus()
+	
+	# Если пришли из альбома
+	if HorseData.selected_horse != null:
+		apply_colors(HorseData.selected_horse)
+		HorseData.selected_horse = null
+
+func apply_colors(colors: Dictionary) -> void:
+	var mat = sphere.material as ShaderMaterial
+	if mat == null:
+		return
+	
+	if colors.has("body"):
+		mat.set_shader_parameter("base_color", Color(colors["body"]))
+	if colors.has("shadow"):
+		mat.set_shader_parameter("shadow_color", Color(colors["shadow"]))
+	if colors.has("highlight"):
+		mat.set_shader_parameter("highlight_color", Color(colors["highlight"]))
 
 func _on_load_button_pressed() -> void:
 	var code = code_input.text.strip_edges()
@@ -14,7 +30,6 @@ func _on_load_button_pressed() -> void:
 		print("Код пустой")
 		return
 	
-	# Декодируем
 	var json = Marshalls.base64_to_utf8(code)
 	var data = JSON.parse_string(json)
 	
@@ -22,19 +37,7 @@ func _on_load_button_pressed() -> void:
 		print("Неправильный код")
 		return
 	
-	# Применяем цвета
-	var mat = sphere.material as ShaderMaterial
-	if mat == null:
-		print("Нет материала у сферы")
-		return
-	
-	if data.has("body"):
-		mat.set_shader_parameter("base_color", Color(data["body"]))
-	if data.has("shadow"):
-		mat.set_shader_parameter("shadow_color", Color(data["shadow"]))
-	if data.has("highlight"):
-		mat.set_shader_parameter("highlight_color", Color(data["highlight"]))
-	
+	apply_colors(data)
 	print("Окрас успешно загружен!")
 
 func _on_back_button_pressed() -> void:
