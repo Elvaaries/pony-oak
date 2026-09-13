@@ -11,8 +11,26 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hetyq")
 
-[node name="BackButton" type="Button" parent="." unique_id=275173241]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=603577827]
 layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=358767172]
+layout_mode = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1972302734]
+layout_mode = 2
+text = "Альбом окрасов"
+horizontal_alignment = 1
+
+[node name="HorsesList" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1699380849]
+layout_mode = 2
+alignment = 1
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1087402375]
+layout_mode = 2
 text = "Назад"
 
-[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

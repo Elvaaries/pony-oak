@@ -1,15 +1,76 @@
 extends Control
 
+@onready var horses_list: VBoxContainer = $MarginContainer/VBoxContainer/HorsesList
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	update_list()
 
+func update_list() -> void:
+	# Очищаем старые карточки
+	for child in horses_list.get_children():
+		child.queue_free()
+	
+	if HorseData.horses.is_empty():
+		var empty_label = Label.new()
+		empty_label.text = "Альбом пуст"
+		empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		horses_list.add_child(empty_label)
+		return
+	
+	# Создаём карточку для каждого окраса
+	for i in HorseData.horses.size():
+		var colors = HorseData.horses[i]
+		
+		var card = HBoxContainer.new()
+		card.add_theme_constant_override("separation", 15)
+		
+		# Номер
+		var number = Label.new()
+		number.text = str(i + 1) + "."
+		number.custom_minimum_size.x = 30
+		card.add_child(number)
+		
+		# Цветные квадратики
+		var color_box = HBoxContainer.new()
+		color_box.add_theme_constant_override("separation", 6)
+		
+		for key in ["body", "shadow", "highlight"]:
+			var rect = ColorRect.new()
+			rect.custom_minimum_size = Vector2(28, 28)
+			rect.color = Color(colors[key])
+			color_box.add_child(rect)
+		
+		card.add_child(color_box)
+		
+		# Кнопка "Загрузить"
+		var load_btn = Button.new()
+		load_btn.text = "Загрузить"
+		load_btn.pressed.connect(_on_load_pressed.bind(i))
+		card.add_child(load_btn)
+		
+		# Кнопка "Удалить"
+		var delete_btn = Button.new()
+		delete_btn.text = "Удалить"
+		delete_btn.pressed.connect(_on_delete_pressed.bind(i))
+		card.add_child(delete_btn)
+		
+		horses_list.add_child(card)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_load_pressed(index: int) -> void:
+	# Пока просто загружаем в просмотрщик через код
+	var colors = HorseData.horses[index]
+	var json = JSON.stringify(colors)
+	var code = Marshalls.utf8_to_base64(json)
+	
+	# Можно сразу перейти в просмотрщик и передать код
+	# Пока для простоты выводим в консоль
+	print("Код для загрузки: ", code)
+	# TODO: позже сделаем автоматическую загрузку
 
+func _on_delete_pressed(index: int) -> void:
+	HorseData.delete_horse(index)
+	update_list()
+	print("Окрас удалён. Осталось: ", HorseData.horses.size())
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
