@@ -1,16 +1,22 @@
 [gd_scene format=3 uid="uid://budc66d16cevr"]
 
 [ext_resource type="Script" uid="uid://bbwhxd3hmifje" path="res://scripts/horse_creator.gd" id="1_75w6r"]
-[ext_resource type="Shader" uid="uid://q80mp3gex3aj" path="res://shaders/horse_creator.gdshader" id="2_5ckn3"]
+[ext_resource type="Shader" uid="uid://cgvu1vuiaio3g" path="res://shaders/horse_zones.gdshader" id="2_5ckn3"]
+[ext_resource type="Texture2D" uid="uid://cmx51iu6br0kh" path="res://sprites/HorseSprite-0001.png" id="2_75w6r"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xvcts"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_75w6r"]
 shader = ExtResource("2_5ckn3")
-shader_parameter/base_color = Color(0.72, 0.48, 0.28, 1)
-shader_parameter/shadow_color = Color(0.28, 0.16, 0.08, 1)
-shader_parameter/highlight_color = Color(1, 0.92, 0.75, 1)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wrdbq"]
-load_path = "res://.godot/imported/Sprite-0001.png-2c4ed6717789ecb669895a778cff3a77.ctex"
+shader_parameter/head_color = Color(0.2, 0.15, 0.12, 1)
+shader_parameter/neck_color = Color(0.4, 0.3, 0.22, 1)
+shader_parameter/ear_left_color = Color(0.55, 0.45, 0.35, 1)
+shader_parameter/ear_right_color = Color(0.6, 0.5, 0.4, 1)
+shader_parameter/chest_color = Color(0.65, 0.52, 0.4, 1)
+shader_parameter/body_color = Color(0.7, 0.55, 0.4, 1)
+shader_parameter/leg_front_left_color = Color(0.3, 0.22, 0.15, 1)
+shader_parameter/leg_front_right_color = Color(0.35, 0.26, 0.18, 1)
+shader_parameter/leg_back_left_color = Color(0.4, 0.3, 0.22, 1)
+shader_parameter/leg_back_right_color = Color(0.45, 0.35, 0.25, 1)
+shader_parameter/tolerance = 0.03
 
 [node name="horse_creator" type="Control" unique_id=2039366639]
 layout_mode = 3
@@ -36,11 +42,15 @@ layout_mode = 2
 text = "Создание окраса"
 horizontal_alignment = 1
 
-[node name="SpherePreview" type="Sprite2D" parent="MarginContainer/VBoxContainer" unique_id=631528824]
-material = SubResource("ShaderMaterial_xvcts")
-position = Vector2(249.48438, 245.51569)
-scale = Vector2(3, 3)
-texture = SubResource("CompressedTexture2D_wrdbq")
+[node name="HorsePreview" type="Sprite2D" parent="MarginContainer/VBoxContainer" unique_id=1506078023]
+texture_filter = 1
+material = SubResource("ShaderMaterial_75w6r")
+position = Vector2(322.25, 199.25)
+scale = Vector2(5.039063, 5.039063)
+texture = ExtResource("2_75w6r")
+
+[node name="SpotsLayer" type="Sprite2D" parent="MarginContainer/VBoxContainer" unique_id=549029270]
+texture_filter = 1
 
 [node name="ColorBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1304826291]
 layout_mode = 2
@@ -90,9 +100,24 @@ text = "Назад"
 layout_mode = 2
 text = "Сохранить"
 
+[node name="SpotsBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1095126620]
+layout_mode = 2
+
+[node name="SpotsColorPicker" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/SpotsBox" unique_id=710567956]
+layout_mode = 2
+
+[node name="ClearSpotsButton" type="Button" parent="MarginContainer/VBoxContainer/SpotsBox" unique_id=1677976669]
+layout_mode = 2
+text = "Очистить пятна"
+
+[node name="DrawModeLabel" type="Label" parent="MarginContainer/VBoxContainer/SpotsBox" unique_id=1368393475]
+layout_mode = 2
+text = "Зажми ЛКМ и рисуй пятна"
+
 [node name="SaveDialog" type="AcceptDialog" parent="." unique_id=1574772684]
 title = "Окрас сохранен!"
 ok_button_text = "Копировать код"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsBox/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsBox/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SpotsBox/ClearSpotsButton" to="." method="_on_clear_spots_button_pressed"]
