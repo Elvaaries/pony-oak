@@ -139,6 +139,10 @@ text = "Назад"
 layout_mode = 2
 text = "Сохранить"
 
+[node name="ClearButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsBox" unique_id=1899376291]
+layout_mode = 2
+text = "Очистить"
+
 [node name="SpotsBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1095126620]
 layout_mode = 2
 
@@ -159,4 +163,5 @@ ok_button_text = "Копировать код"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsBox/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsBox/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsBox/ClearButton" to="." method="_on_clear_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SpotsBox/ClearSpotsButton" to="." method="_on_clear_spots_button_pressed"]

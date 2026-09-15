@@ -1,62 +1,105 @@
 extends Control
 
-@onready var horses_list: VBoxContainer = $MarginContainer/VBoxContainer/HorsesList
+@onready var horses_list = $MarginContainer/VBoxContainer/HorsesList
 
 func _ready() -> void:
-	update_list()
+	if horses_list == null:
+		push_error("Не найден HorsesList!")
+		return
+	update_display()
 
-func update_list() -> void:
+func update_display() -> void:
 	for child in horses_list.get_children():
 		child.queue_free()
 	
-	if HorseData.horses.is_empty():
-		var empty_label = Label.new()
-		empty_label.text = "Альбом пуст"
-		empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		horses_list.add_child(empty_label)
-		return
-	
-	for i in HorseData.horses.size():
-		var colors = HorseData.horses[i]
-		
-		var card = HBoxContainer.new()
-		card.add_theme_constant_override("separation", 15)
-		
-		var number = Label.new()
-		number.text = str(i + 1) + "."
-		number.custom_minimum_size.x = 30
-		card.add_child(number)
-		
-		var color_box = HBoxContainer.new()
-		color_box.add_theme_constant_override("separation", 6)
-		
-		for key in ["body", "shadow", "highlight"]:
-			var rect = ColorRect.new()
-			rect.custom_minimum_size = Vector2(28, 28)
-			rect.color = Color(colors[key])
-			color_box.add_child(rect)
-		
-		card.add_child(color_box)
-		
-		var load_btn = Button.new()
-		load_btn.text = "Загрузить"
-		load_btn.pressed.connect(_on_load_pressed.bind(i))
-		card.add_child(load_btn)
-		
-		var delete_btn = Button.new()
-		delete_btn.text = "Удалить"
-		delete_btn.pressed.connect(_on_delete_pressed.bind(i))
-		card.add_child(delete_btn)
-		
-		horses_list.add_child(card)
+	var saved = HorseData.get_all_horses()
+	for i in range(saved.size()):
+		horses_list.add_child(create_slot(i, saved[i]))
 
-func _on_load_pressed(index: int) -> void:
-	HorseData.selected_horse = HorseData.horses[index]
+func create_slot(index: int, data: Dictionary) -> PanelContainer:
+	var panel = PanelContainer.new()
+	panel.custom_minimum_size = Vector2(150, 210)
+	
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.22, 0.22, 0.25)
+	style.set_corner_radius_all(10)
+	panel.add_theme_stylebox_override("panel", style)
+	
+	var vbox = VBoxContainer.new()
+	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.add_theme_constant_override("separation", 6)
+	panel.add_child(vbox)
+	
+	# Имя
+	var name_label = Label.new()
+	name_label.text = data.get("name", "Окрас " + str(index + 1))
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(name_label)
+	
+	# Превью
+	var preview = TextureRect.new()
+	preview.custom_minimum_size = Vector2(110, 110)
+	preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	
+	var path = HorseData.get_preview_path(index)
+	if path != "" and FileAccess.file_exists(path):
+		var img = Image.load_from_file(path)
+		if img:
+			preview.texture = ImageTexture.create_from_image(img)
+	else:
+		preview.modulate = Color(data.get("body", "#888888"))
+	
+	vbox.add_child(preview)
+	
+	# Кнопки
+	var buttons = HBoxContainer.new()
+	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
+	buttons.add_theme_constant_override("separation", 4)
+	
+	var edit_btn = Button.new()
+	edit_btn.text = "Изм"
+	edit_btn.custom_minimum_size = Vector2(40, 28)
+	edit_btn.pressed.connect(_on_edit.bind(index))
+	buttons.add_child(edit_btn)
+	
+	var view_btn = Button.new()
+	view_btn.text = "Смотр"
+	view_btn.custom_minimum_size = Vector2(50, 28)
+	view_btn.pressed.connect(_on_view.bind(index))
+	buttons.add_child(view_btn)
+	
+	var copy_btn = Button.new()
+	copy_btn.text = "Код"
+	copy_btn.custom_minimum_size = Vector2(40, 28)
+	copy_btn.pressed.connect(_on_copy.bind(index))
+	buttons.add_child(copy_btn)
+	
+	var del_btn = Button.new()
+	del_btn.text = "✕"
+	del_btn.custom_minimum_size = Vector2(32, 28)
+	del_btn.pressed.connect(_on_delete.bind(index))
+	buttons.add_child(del_btn)
+	
+	vbox.add_child(buttons)
+	return panel
+
+func _on_edit(index: int) -> void:
+	HorseData.selected_horse = HorseData.get_horse(index)
+	get_tree().change_scene_to_file("res://scenes/horse_creator.tscn")
+
+func _on_view(index: int) -> void:
+	HorseData.selected_horse = HorseData.get_horse(index)
 	get_tree().change_scene_to_file("res://scenes/horse_viewer.tscn")
 
-func _on_delete_pressed(index: int) -> void:
-	HorseData.delete_horse(index)
-	update_list()
+func _on_copy(index: int) -> void:
+	var data = HorseData.get_horse(index)
+	var code = Marshalls.utf8_to_base64(JSON.stringify(data))
+	DisplayServer.clipboard_set(code)
+
+func _on_delete(index: int) -> void:
+	HorseData.remove_horse(index)
+	update_display()
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

@@ -1,16 +1,22 @@
 [gd_scene format=3 uid="uid://c73of7kcd2hdk"]
 
 [ext_resource type="Script" uid="uid://bol4seo3xv63u" path="res://scripts/horse_viewer.gd" id="1_5ek86"]
-[ext_resource type="Shader" uid="uid://q80mp3gex3aj" path="res://shaders/horse_creator.gdshader" id="2_rn7ah"]
+[ext_resource type="Shader" uid="uid://cgvu1vuiaio3g" path="res://shaders/horse_zones.gdshader" id="2_rn7ah"]
+[ext_resource type="Texture2D" uid="uid://cmx51iu6br0kh" path="res://sprites/HorseSprite-0001.png" id="3_pyqng"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pyqng"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rn7ah"]
 shader = ExtResource("2_rn7ah")
-shader_parameter/base_color = Color(0.72, 0.48, 0.28, 1)
-shader_parameter/shadow_color = Color(0.28, 0.16, 0.08, 1)
-shader_parameter/highlight_color = Color(1, 0.92, 0.75, 1)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m8sea"]
-load_path = "res://.godot/imported/Sprite-0001.png-2c4ed6717789ecb669895a778cff3a77.ctex"
+shader_parameter/head_color = Color(0.2, 0.15, 0.12, 1)
+shader_parameter/neck_color = Color(0.4, 0.3, 0.22, 1)
+shader_parameter/ear_left_color = Color(0.55, 0.45, 0.35, 1)
+shader_parameter/ear_right_color = Color(0.6, 0.5, 0.4, 1)
+shader_parameter/chest_color = Color(0.65, 0.52, 0.4, 1)
+shader_parameter/body_color = Color(0.7, 0.55, 0.4, 1)
+shader_parameter/leg_front_left_color = Color(0.3, 0.22, 0.15, 1)
+shader_parameter/leg_front_right_color = Color(0.35, 0.26, 0.18, 1)
+shader_parameter/leg_back_left_color = Color(0.4, 0.3, 0.22, 1)
+shader_parameter/leg_back_right_color = Color(0.45, 0.35, 0.25, 1)
+shader_parameter/tolerance = 0.03
 
 [node name="HorseViewer" type="Control" unique_id=1806056252]
 layout_mode = 3
@@ -35,12 +41,6 @@ layout_mode = 2
 [node name="CodeInput" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=1756848601]
 layout_mode = 2
 
-[node name="SpherePreview" type="Sprite2D" parent="MarginContainer/VBoxContainer" unique_id=947938587]
-material = SubResource("ShaderMaterial_pyqng")
-position = Vector2(249.48438, 245.51569)
-scale = Vector2(3, 3)
-texture = SubResource("CompressedTexture2D_m8sea")
-
 [node name="LoadButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=583322087]
 layout_mode = 2
 text = "ввести код"
@@ -48,6 +48,16 @@ text = "ввести код"
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1004844644]
 layout_mode = 2
 text = "Назад"
+
+[node name="HorsePreview" type="Sprite2D" parent="MarginContainer/VBoxContainer" unique_id=558088607]
+texture_filter = 1
+material = SubResource("ShaderMaterial_rn7ah")
+position = Vector2(322.25, 199.25)
+scale = Vector2(5.039063, 5.039063)
+texture = ExtResource("3_pyqng")
+
+[node name="SpotsLayer" type="Sprite2D" parent="MarginContainer/VBoxContainer" unique_id=476599869]
+texture_filter = 1
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
